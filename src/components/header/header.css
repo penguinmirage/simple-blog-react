@@ -1,0 +1,17 @@
+.header {
+  height: 80px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 9px;
+}
+
+.auth-elements {
+  display: flex;
+  flex-direction: row;
+  gap: 19px;
+  font-size: 18px;
+}
