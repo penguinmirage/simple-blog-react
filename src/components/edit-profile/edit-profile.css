@@ -1,0 +1,82 @@
+.edit-profile {
+  height: auto;
+  width: 374px;
+  box-shadow:
+    0px 4px 6px rgba(0, 0, 0, 0.1),
+    0px 1px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 26px;
+  background-color: #ffffff;
+  padding: 20px 0;
+}
+
+.edit-profile__title {
+  font-size: 28px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-profile__form-container {
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-profile__form-container__username,
+.edit-profile__form-container__email,
+.edit-profile__form-container__password,
+.edit-profile__form-container__avatar {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.edit-profile__form-container__username > label,
+.edit-profile__form-container__email > label,
+.edit-profile__form-container__password > label,
+.edit-profile__form-container__avatar > label {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.edit-profile__form-container__username > input,
+.edit-profile__form-container__email > input,
+.edit-profile__form-container__password > input,
+.edit-profile__form-container__avatar > input {
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid lightgrey;
+}
+
+.edit-profile-btn {
+  background-color: #1890ff;
+  height: 40px;
+  width: 100%;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.edit-profile-btn:hover {
+  background-color: lightskyblue;
+}
+
+.edit-profile-btn:active {
+  background-color: darkcyan;
+}
+
+.edit-profile-btn__name {
+  font-weight: bold;
+}

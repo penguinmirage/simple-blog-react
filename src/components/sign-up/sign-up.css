@@ -1,0 +1,100 @@
+.create-account {
+  height: auto;
+  width: 374px;
+  box-shadow:
+    0px 4px 6px rgba(0, 0, 0, 0.1),
+    0px 1px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 26px;
+  background-color: #ffffff;
+  padding: 20px 0;
+}
+
+.create-account__title {
+  font-size: 28px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.create-account__form-container {
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.create-account__form-container__username,
+.create-account__form-container__email,
+.create-account__form-container__password,
+.create-account__form-container__repeat-password {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.create-account__form-container__username > label,
+.create-account__form-container__email > label,
+.create-account__form-container__password > label,
+.create-account__form-container__repeat-password > label {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.create-account__form-container__username > input,
+.create-account__form-container__email > input,
+.create-account__form-container__password > input,
+.create-account__form-container__repeat-password > input {
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid lightgrey;
+}
+
+.create-account__form-container__checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.create-account__form-container__checkbox > input {
+  margin-right: 8px;
+}
+
+.create-account-btn {
+  background-color: #1890ff;
+  height: 40px;
+  width: 100%;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.create-account-btn:hover {
+  background-color: lightskyblue;
+}
+
+.create-account-btn:active {
+  background-color: darkcyan;
+}
+
+.create-account-btn__name {
+  font-weight: bold;
+}
+
+.create-account__footer {
+  font-size: 12px;
+  line-height: 22px;
+  margin-top: 8px;
+  text-align: center;
+}

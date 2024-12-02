@@ -27,21 +27,75 @@
 }
 
 .sign-in__form-container__email {
+  display: flex;
+  flex-direction: column;
+}
+.sign-in__form-container__email > label {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.sign-in__form-container__email > input {
+  height: 40px;
+  width: 320px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid lightgrey;
 }
 
 .sign-in__form-container__password {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+}
+
+.sign-in__form-container__password > input {
+  height: 40px;
+  width: 320px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid lightgrey;
+}
+
+.sign-in__form-container__password > label {
+  font-size: 14px;
+  line-height: 22px;
 }
 
 .log-in-btn {
   background-color: #1890ff;
-  height: 40px;
-  width: 319px;
+  height: 19px;
+  width: 320px;
   color: white;
   font-size: 16px;
   text-align: center;
   padding-top: 8px;
   padding-bottom: 8px;
+  margin-top: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.log-in-btn:hover {
+  background-color: lightskyblue;
+}
+
+.log-in-btn:active {
+  background-color: darkcyan;
+}
+
+.log-in-btn__name {
+  font-weight: bold;
 }
 
 .sign-in__footer {
+  font-size: 12px;
+  line-height: 22px;
+  margin-top: 8px;
+  text-align: center;
+  height: 20px;
+  width: auto;
 }

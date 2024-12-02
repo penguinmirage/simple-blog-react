@@ -1,4 +1,4 @@
-.article-container {
+/* .article-container {
   width: 870px;
   display: flex;
   flex-direction: column;
@@ -25,4 +25,133 @@
   margin-right: auto;
 
   background-color: #ffffff;
+} */
+
+/* article.css */
+
+.article-container {
+  width: 870px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow:
+    0px 4px 6px rgba(0, 0, 0, 0.1),
+    0px 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.list-element {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.one-article__left-side-of-the-element {
+  flex: 3;
+  margin-right: 20px;
+}
+
+.one-article__header {
+  display: flex;
+
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.one-article__header-title p {
+  font-size: 20px;
+  color: #1890ff;
+  line-height: 28px;
+  margin: 0;
+}
+
+.one-article__like {
+  font-size: 16px;
+  color: #a0aec0;
+}
+
+.one-article__tags {
+  margin-bottom: 15px;
+}
+
+.one-article__tags__single-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #00000080;
+  background-color: transparent;
+  border-radius: 2px;
+  border: 1px solid #00000080;
+}
+
+.one-article__kurztext {
+  font-size: 14px;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.one-acticle__overview {
+  font-size: 14px;
+  color: #2d3748;
+  line-height: 1.8;
+}
+
+.one-acticle__overview h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2d3748;
+  margin-top: 20px;
+}
+
+.one-acticle__overview ol {
+  padding-left: 20px;
+  margin: 15px 0;
+}
+
+.one-acticle__overview ol li {
+  margin-bottom: 8px;
+}
+
+.one-article__right-side-of-the-element {
+  flex: 1;
+  text-align: right;
+}
+
+.one-article__author-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.one-article__author-info-left-side {
+  margin-right: 10px;
+  text-align: right;
+}
+
+.one-article__author-info__username {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1a202c;
+}
+
+.one-article__author-info__post-date {
+  font-size: 12px;
+  color: #718096;
+}
+
+.one-article__author-info-right-side {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.one-article__author-info__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
