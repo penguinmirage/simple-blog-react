@@ -29,6 +29,7 @@
 .one-article__header-title {
   font-size: 20px;
   color: #1890ff;
+  margin: 4px;
 }
 
 .one-article__like {
@@ -36,12 +37,13 @@
 }
 
 .one-article__tags {
-  margin-bottom: 4px;
+  margin: 4px;
 }
 
 .one-article__tags__single-tag {
   font-size: 12px;
   border: 1px solid #00000080;
+  margin: 4px;
 }
 
 .one-article__kurztext {
@@ -50,12 +52,14 @@
   font-size: 12px;
   line-height: 22px;
   overflow: clip;
+  margin: 4px;
 }
 
 .one-article__author-info {
   display: flex;
   flex-direction: row;
   gap: 12px;
+  margin: 4px;
 }
 
 .one-article__author-info__username {

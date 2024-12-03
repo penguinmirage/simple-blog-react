@@ -9,24 +9,33 @@ export default class ApiService {
     return await res.json();
   }
 
-  async getListOfArticles() {
-    const res = await this.getResource(`/articles/`);
-    return res.articles.map(this._transformArticle); // Fixed to use `articles` instead of `results`.
+  async getListOfArticles(page = 1, limit = 10) {
+    const offset = (page - 1) * limit;
+    const res = await this.getResource(`/articles?limit=${limit}&offset=${offset}`);
+    return {
+      articles: res.articles.map(this._transformArticle),
+      total: res.articlesCount,
+    };
   }
 
+  // async getListOfArticles() {
+  //   const res = await this.getResource(`/articles/`);
+  //   return res.articles.map(this._transformArticle);
+  // }
+
   async getArticle(slug) {
-    const res = await this.getResource(`/articles/${slug}`); // Use `slug` as the correct variable for the API path.
-    return this._transformArticle(res.article); // Correctly transform the fetched article object.
+    const res = await this.getResource(`/articles/${slug}`);
+    return this._transformArticle(res.article);
   }
 
   _transformArticle = (article) => {
     return {
-      id: article.id, // Fixed to access properties from `article`.
+      id: article.id,
       slug: article.slug,
       title: article.title,
       description: article.description,
       body: article.body,
-      tags: article.tagList || [], // `tagList` in API response, default to empty array if undefined.
+      tags: article.tagList || [],
       createdAt: article.createdAt,
       updatedAt: article.updatedAt,
       favorited: article.favorited,
@@ -41,5 +50,4 @@ export default class ApiService {
   };
 }
 
-// Example of how to use this service:
 const apiService = new ApiService();
