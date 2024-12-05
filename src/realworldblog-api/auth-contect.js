@@ -4,35 +4,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  // инициализация залогиненного пользователя
-  // useEffect(() => {
-  //   const initializeUser = async () => {
-  //     const token = localStorage.getItem('token');
-  //     if (token) {
-  //       try {
-  //         const response = await fetch('https://blog-platform.kata.academy/api/user', {
-  //           method: 'GET',
-  //           headers: {
-  //             Authorization: `Token ${token}`,
-  //           },
-  //         });
 
-  //         if (!response.ok) {
-  //           throw new Error('Failed to fetch user');
-  //         }
-
-  //         const data = await response.json();
-  //         setUser(data.user);
-  //       } catch (error) {
-  //         console.error('Error restoring user:', error);
-  //         localStorage.removeItem('token');
-  //       }
-  //     }
-  //   };
-
-  //   initializeUser();
-  // }, []);
-  //
   useEffect(() => {
     const initializeUser = async () => {
       const token = localStorage.getItem('token');
@@ -41,7 +13,7 @@ export const AuthProvider = ({ children }) => {
           const response = await fetch('https://blog-platform.kata.academy/api/user', {
             method: 'GET',
             headers: {
-              Authorization: `Token ${token}`, // Передаём токен
+              Authorization: `Token ${token}`,
             },
           });
 
@@ -50,10 +22,10 @@ export const AuthProvider = ({ children }) => {
           }
 
           const data = await response.json();
-          setUser(data.user); // Восстанавливаем состояние пользователя
+          setUser(data.user);
         } catch (error) {
           console.error('Error restoring user:', error);
-          localStorage.removeItem('token'); // Если ошибка, удаляем токен
+          localStorage.removeItem('token');
         }
       }
     };

@@ -54,6 +54,18 @@ export default class ApiService {
       },
     };
   };
+
+  async deleteArticle(slug) {
+    return this.getResource(`/articles/${slug}`, { method: 'DELETE' });
+  }
+
+  async updateArticle(slug, articleData) {
+    return this.getResource(`/articles/${slug}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ article: articleData }),
+    });
+  }
 }
 
 const apiService = new ApiService();
