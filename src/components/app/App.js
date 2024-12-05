@@ -3,20 +3,61 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from '../header';
 import Article from '../article';
 import ListOfArticles from '../list';
+import CreateAccount from '../sign-up';
+import SignIn from '../auth/sign-in';
+import EditProfile from '../edit-profile';
+import { AuthProvider } from '../../realworldblog-api/auth-contect';
+import ProtectedRoute from '../protected/protected-route';
 
 const App = () => {
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<ListOfArticles />} />
-        <Route path="/article/:slug" element={<Article />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="app-container">
+          <Header />
+          <Routes>
+            <Route path="/" element={<ListOfArticles />} />
+            <Route path="/article/:slug" element={<Article />} />
+            <Route path="/signup" element={<CreateAccount />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route
+              path="/profile/edit"
+              element={
+                <ProtectedRoute>
+                  <EditProfile />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 };
 
 export default App;
+
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import Header from '../header';
+// import Article from '../article';
+// import ListOfArticles from '../list';
+
+// const App = () => {
+//   return (
+//     <Router>
+//       <div className="app-container">
+//         <Header />
+//         <Routes>
+//           <Route path="/" element={<ListOfArticles />} />
+//           <Route path="/article/:slug" element={<Article />} />
+//         </Routes>
+//       </div>
+//     </Router>
+//   );
+// };
+
+// export default App;
 
 // import './App.css';
 // import Header from '../header';

@@ -1,8 +1,14 @@
 export default class ApiService {
   _apiBase = 'https://blog-platform.kata.academy/api';
 
-  async getResource(url) {
-    const res = await fetch(`${this._apiBase}${url}`);
+  async getResource(url, options = {}) {
+    const token = localStorage.getItem('token');
+    const headers = {
+      ...options.headers,
+      Authorization: token ? `Token ${token}` : undefined,
+    };
+
+    const res = await fetch(`${this._apiBase}${url}`, { ...options, headers });
     if (!res.ok) {
       throw new Error(`Could not fetch ${url}, received ${res.status}`);
     }

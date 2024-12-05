@@ -87,32 +87,70 @@ const Article = () => {
     return <div>Error: {error}</div>;
   }
 
-  const { title, body, tags, author, createdAt, favoritesCount } = article;
+  const { title, body, description, tags, author, createdAt, favoritesCount } = article;
+
+  // return (
+  //   <div className="article-container">
+  //     <div className="list-element">
+  //       <div className="article-header">
+  //         <h1>{title}</h1>
+  //         <div className="article-like">♥{favoritesCount}</div>
+  //       </div>
+  //       <div className="article-tags">
+  //         {tags.map((tag, index) => (
+  //           <span key={index} className="article-tag">
+  //             {tag}
+  //           </span>
+  //         ))}
+  //       </div>
+  //       <div className="article-body">
+  //         <Markdown>{body}</Markdown>
+  //       </div>
+  //       <div className="article-author">
+  //         <div className="author-info">
+  //           <div className="author-name">{author.username}</div>
+  //           <div className="author-date">{new Date(createdAt).toLocaleDateString()}</div>
+  //         </div>
+  //         <div className="author-avatar">
+  //           <img src={author.image || 'placeholder-avatar.png'} alt={author.username} />
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </div>
 
   return (
     <div className="article-container">
-      <div className="article">
-        <div className="article-header">
-          <h1>{title}</h1>
-          <div className="article-like">♥{favoritesCount}</div>
-        </div>
-        <div className="article-tags">
-          {tags.map((tag, index) => (
-            <span key={index} className="article-tag">
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="article-body">
-          <Markdown>{body}</Markdown>
-        </div>
-        <div className="article-author">
-          <div className="author-info">
-            <div className="author-name">{author.username}</div>
-            <div className="author-date">{new Date(createdAt).toLocaleDateString()}</div>
+      <div className="list-element">
+        <div className="one-article__left-side-of-the-element">
+          <div className="one-article__header">
+            <div className="one-article__header-title">
+              <h1>{title}</h1>
+            </div>
+            <div className="one-article__like">♥{favoritesCount}</div>
           </div>
-          <div className="author-avatar">
-            <img src={author.image || 'placeholder-avatar.png'} alt={author.username} />
+          <div className="one-article__tags">
+            {tags.map((tag, index) => (
+              <span key={index} className="one-article__tags__single-tag">
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="one-article__kurztext">{description}</div>
+          <div className="one-acticle__overview">
+            <Markdown>{body}</Markdown>
+          </div>
+        </div>
+        <div className="one-article__right-side-of-the-element">
+          <div className="one-article__author-info">
+            <div className="one-article__author-info-left-side">
+              <div className="one-article__author-info__username">{author.username}</div>
+              <div className="one-article__author-info__post-date">{new Date(createdAt).toLocaleDateString()}</div>
+            </div>
+            <div className="one-article__author-info-right-side">
+              <div className="one-article__author-info__avatar">
+                <img src={author.image || 'placeholder-avatar.png'} alt={author.username} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

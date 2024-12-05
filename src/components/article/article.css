@@ -49,7 +49,6 @@
 }
 
 .one-article__left-side-of-the-element {
-  flex: 3;
   margin-right: 20px;
 }
 
@@ -77,14 +76,9 @@
 }
 
 .one-article__tags__single-tag {
-  display: inline-block;
-  padding: 5px 12px;
   font-size: 12px;
-  font-weight: bold;
-  color: #00000080;
-  background-color: transparent;
-  border-radius: 2px;
   border: 1px solid #00000080;
+  margin: 4px;
 }
 
 .one-article__kurztext {
@@ -117,7 +111,6 @@
 }
 
 .one-article__right-side-of-the-element {
-  flex: 1;
   text-align: right;
 }
 

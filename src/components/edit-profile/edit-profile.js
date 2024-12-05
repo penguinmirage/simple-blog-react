@@ -1,33 +1,224 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../realworldblog-api/auth-contect';
 import './edit-profile.css';
 
 const EditProfile = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
+
+  // Pre-fill form with current user data
+  useEffect(() => {
+    if (user) {
+      setValue('username', user.username);
+      setValue('email', user.email);
+      setValue('bio', user.bio || '');
+      setValue('avatar', user.image || '');
+    }
+  }, [user, setValue]);
+
+  const onSubmit = async (data) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('https://blog-platform.kata.academy/api/user', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${token}`,
+        },
+        body: JSON.stringify({
+          user: {
+            username: data.username,
+            email: data.email,
+            bio: data.bio,
+            image: data.avatar,
+            password: data.password || undefined,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.errors || 'Update failed');
+      }
+
+      alert('Profile updated successfully!');
+      navigate('/');
+    } catch (err) {
+      console.error('Error updating profile:', err);
+      alert('Failed to update profile.');
+    }
+  };
+
   return (
     <div className="edit-profile">
       <h2 className="edit-profile__title">Edit Profile</h2>
-      <form className="edit-profile__form-container">
+      <form className="edit-profile__form-container" onSubmit={handleSubmit(onSubmit)}>
+        {/* Username Field */}
         <div className="edit-profile__form-container__username">
           <label htmlFor="username">Username</label>
-          <input type="text" id="username" defaultValue="John Doe" placeholder="Username" />
+          <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            {...register('username', {
+              required: 'Username is required',
+              minLength: { value: 3, message: 'Username must be at least 3 characters' },
+              maxLength: { value: 20, message: 'Username must not exceed 20 characters' },
+            })}
+          />
+          {errors.username && <p style={{ color: 'red' }}>{errors.username.message}</p>}
         </div>
+
+        {/* Email Field */}
         <div className="edit-profile__form-container__email">
-          <label htmlFor="email">Email address</label>
-          <input type="email" id="email" defaultValue="john@example.com" placeholder="Email address" />
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                message: 'Invalid email format',
+              },
+            })}
+          />
+          {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
         </div>
+
+        {/* Password Field */}
         <div className="edit-profile__form-container__password">
-          <label htmlFor="password">New password</label>
-          <input type="password" id="password" placeholder="New password" />
+          <label htmlFor="password">New Password (optional)</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="New Password"
+            {...register('password', {
+              minLength: { value: 6, message: 'Password must be at least 6 characters' },
+              maxLength: { value: 40, message: 'Password must not exceed 40 characters' },
+            })}
+          />
+          {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
         </div>
+
+        {/* Avatar Field */}
         <div className="edit-profile__form-container__avatar">
-          <label htmlFor="avatar">Avatar image (url)</label>
-          <input type="text" id="avatar" placeholder="Avatar image" />
+          <label htmlFor="avatar">Avatar Image (URL)</label>
+          <input
+            type="text"
+            id="avatar"
+            placeholder="Avatar image URL"
+            {...register('avatar', {
+              pattern: {
+                value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg|webp))$/i,
+                message: 'Invalid image URL',
+              },
+            })}
+          />
+          {errors.avatar && <p style={{ color: 'red' }}>{errors.avatar.message}</p>}
         </div>
-        <div className="edit-profile-btn" type="submit">
-          <p className="edit-profile-btn__name">Save</p>
-        </div>
+
+        {/* Submit Button */}
+        <button className="edit-profile-btn" type="submit">
+          Save
+        </button>
       </form>
     </div>
   );
 };
 
 export default EditProfile;
+
+// import React from 'react';
+// import { useForm } from 'react-hook-form';
+// import { useNavigate } from 'react-router-dom';
+// import { useAuth } from '../../realworldblog-api/auth-contect';
+// import './edit-profile.css';
+
+// const EditProfile = () => {
+//   return (
+//     <div className="edit-profile">
+//       <h2 className="edit-profile__title">Edit Profile</h2>
+//       <form className="edit-profile__form-container">
+//         <div className="edit-profile__form-container__username">
+//           <label htmlFor="username">Username</label>
+//           <input
+//             type="text"
+//             id="username"
+//             defaultValue={username}
+//             placeholder="Username"
+//             {...register('username', {
+//               required: 'Username is required',
+//               minLength: { value: 3, message: 'Username must be at least 3 characters' },
+//               maxLength: { value: 20, message: 'Username must not exceed 20 characters' },
+//             })}
+//           />
+//           {errors.username && <p style={{ color: 'red' }}>{errors.username.message}</p>}
+//         </div>
+//         <div className="edit-profile__form-container__email">
+//           <label htmlFor="email">Email address</label>
+//           <input
+//             type="email"
+//             id="email"
+//             defaultValue={email}
+//             placeholder="Email address"
+//             {...register('email', {
+//               required: 'Email is required',
+//               pattern: {
+//                 value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+//                 message: 'Invalid email format',
+//               },
+//             })}
+//           />
+//           {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
+//         </div>
+//         <div className="edit-profile__form-container__password">
+//           <label htmlFor="password">New password</label>
+//           <input
+//             type="password"
+//             id="password"
+//             placeholder="New password"
+//             {...register('password', {
+//               required: 'Password is required',
+//               minLength: { value: 6, message: 'Password must be at least 6 characters' },
+//               maxLength: { value: 40, message: 'Password must not exceed 40 characters' },
+//             })}
+//           />
+//           {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
+//         </div>
+//         <div className="edit-profile__form-container__avatar">
+//           <label htmlFor="avatar">Avatar image (url)</label>
+//           <input
+//             type="text"
+//             id="avatar"
+//             placeholder="Avatar image"
+//             {...register('IMG', {
+//               required: 'Correct image URL is required',
+//               pattern: {
+//                 value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg|webp))$/i,
+//                 message: 'Invalid URL',
+//               },
+//             })}
+//           />
+//           {errors.avatar && <p style={{ color: 'red' }}>{errors.avatar.message}</p>}
+//           />
+//         </div>
+//         <div className="edit-profile-btn" type="submit">
+//           <p className="edit-profile-btn__name">Save</p>
+//         </div>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default EditProfile;

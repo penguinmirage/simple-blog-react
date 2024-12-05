@@ -15,3 +15,11 @@
   gap: 19px;
   font-size: 18px;
 }
+
+.name-element:hover {
+  cursor: pointer;
+}
+
+.user-info:hover {
+  cursor: pointer;
+}
