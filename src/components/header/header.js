@@ -50,6 +50,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../realworldblog-api/auth-contect';
+import { Button } from 'antd';
 import './header.css';
 
 const Header = () => {
@@ -79,24 +80,24 @@ const Header = () => {
       <div className="auth-elements">
         {!user ? (
           <>
-            <button style={{ color: 'blue' }} onClick={handleSignIn}>
+            <Button ghost style={{ color: 'blue' }} onClick={handleSignIn}>
               Sign In
-            </button>
-            <button style={{ color: 'green', border: '1px solid green' }} onClick={handleSignUp}>
+            </Button>
+            <Button ghost style={{ color: 'green', border: '1px solid green' }} onClick={handleSignUp}>
               Sign Up
-            </button>
+            </Button>
           </>
         ) : (
           <>
-            <button style={{ color: 'purple' }} onClick={handleCreateArticle}>
+            <Button default style={{ color: 'green' }} onClick={handleCreateArticle}>
               Create New Article
-            </button>
+            </Button>
             <div className="user-info" onClick={handleEditProfile}>
               {user.username}
             </div>
-            <button style={{ color: 'red', border: '1px solid red' }} onClick={handleLogout}>
+            <Button ghost danger style={{ color: 'red', border: '1px solid red' }} onClick={handleLogout}>
               Log Out
-            </button>
+            </Button>
           </>
         )}
       </div>

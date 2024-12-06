@@ -32,7 +32,7 @@
 .article-container {
   width: 870px;
   margin: 20px auto;
-  padding: 20px;
+  padding: 26px;
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow:
@@ -78,7 +78,10 @@
 .one-article__tags__single-tag {
   font-size: 12px;
   border: 1px solid #00000080;
-  margin: 4px;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-left: 4px;
+  padding: 2px;
 }
 
 .one-article__kurztext {
@@ -148,8 +151,15 @@
   height: 100%;
   object-fit: cover;
 }
+
+.edit-delete-btns {
+  position: relative;
+  right: 20px;
+}
 .edit-article-btn {
+  margin: 4px;
 }
 
 .delete-article.btn {
+  margin: 4px;
 }

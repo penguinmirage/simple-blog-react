@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ApiService from '../../realworldblog-api/rwbapi';
 import './article.css';
 import Markdown from 'react-markdown';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import { useAuth } from '../../realworldblog-api/auth-contect';
 
 const Article = () => {
@@ -45,7 +45,11 @@ const Article = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <Spin tip="Loading articles..." />
+      </div>
+    );
   }
 
   if (error) {
@@ -89,14 +93,14 @@ const Article = () => {
             </div>
           </div>
           {user?.username === author.username && (
-            <>
+            <div className="edit-delete-btns">
               <Button onClick={handleEditArticle} className="edit-article-btn">
                 Edit
               </Button>
               <Button type="primary" danger onClick={handleDeleteArticle} className="delete-article-btn">
                 Delete
               </Button>
-            </>
+            </div>
           )}
         </div>
       </div>

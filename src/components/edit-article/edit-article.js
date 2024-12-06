@@ -58,7 +58,7 @@ const EditArticle = () => {
     }
     try {
       await apiService.updateArticle(slug, { title, description, body, tags });
-      navigate(`/articles/${slug}`);
+      navigate(`/article/${slug}`);
     } catch (err) {
       setError(err.message);
     }
