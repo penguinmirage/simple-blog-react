@@ -15,7 +15,6 @@ const EditProfile = () => {
     setValue,
   } = useForm();
 
-  // Pre-fill form with current user data
   useEffect(() => {
     if (user) {
       setValue('username', user.username);
@@ -62,7 +61,6 @@ const EditProfile = () => {
     <div className="edit-profile">
       <h2 className="edit-profile__title">Edit Profile</h2>
       <form className="edit-profile__form-container" onSubmit={handleSubmit(onSubmit)}>
-        {/* Username Field */}
         <div className="edit-profile__form-container__username">
           <label htmlFor="username">Username</label>
           <input
@@ -78,7 +76,6 @@ const EditProfile = () => {
           {errors.username && <p style={{ color: 'red' }}>{errors.username.message}</p>}
         </div>
 
-        {/* Email Field */}
         <div className="edit-profile__form-container__email">
           <label htmlFor="email">Email</label>
           <input
@@ -96,7 +93,6 @@ const EditProfile = () => {
           {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
         </div>
 
-        {/* Password Field */}
         <div className="edit-profile__form-container__password">
           <label htmlFor="password">New Password (optional)</label>
           <input
@@ -111,7 +107,6 @@ const EditProfile = () => {
           {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
         </div>
 
-        {/* Avatar Field */}
         <div className="edit-profile__form-container__avatar">
           <label htmlFor="avatar">Avatar Image (URL)</label>
           <input
@@ -128,8 +123,18 @@ const EditProfile = () => {
           {errors.avatar && <p style={{ color: 'red' }}>{errors.avatar.message}</p>}
         </div>
 
-        {/* Submit Button */}
-        <div className="edit-profile-btn" type="submit">
+        <div
+          className="log-in-btn"
+          role="button"
+          tabIndex="0"
+          onClick={handleSubmit(onSubmit)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleSubmit(onSubmit)();
+              e.preventDefault();
+            }
+          }}
+        >
           Save
         </div>
       </form>

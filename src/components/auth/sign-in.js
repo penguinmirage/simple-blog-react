@@ -69,7 +69,18 @@ const SignIn = () => {
 
         {errors.general && <p style={{ color: 'red' }}>{errors.general.message}</p>}
 
-        <div className="log-in-btn" type="submit">
+        <div
+          className="log-in-btn"
+          role="button"
+          tabIndex="0"
+          onClick={handleSubmit(onSubmit)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleSubmit(onSubmit)();
+              e.preventDefault();
+            }
+          }}
+        >
           <p className="log-in-btn__name">Login</p>
         </div>
 

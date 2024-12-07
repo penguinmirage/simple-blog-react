@@ -106,7 +106,18 @@ const CreateAccount = () => {
           {errors.confirmPassword && <p style={{ color: 'red' }}>{errors.confirmPassword.message}</p>}
         </div>
 
-        <div className="create-account-btn" type="submit">
+        <div
+          className="create-account-btn"
+          role="button"
+          tabIndex="0"
+          onClick={handleSubmit(onSubmit)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleSubmit(onSubmit)();
+              e.preventDefault();
+            }
+          }}
+        >
           <p className="create-account-btn__name">Create</p>
         </div>
 
