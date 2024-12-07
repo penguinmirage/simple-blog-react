@@ -11,7 +11,7 @@ const CreateAccount = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch, // Watch function to track password
+    watch,
   } = useForm();
 
   const onSubmit = async (data) => {
@@ -34,8 +34,8 @@ const CreateAccount = () => {
       }
 
       const result = await response.json();
-      await login(email, password); // Log in the user immediately after sign-up
-      navigate('/'); // Redirect to homepage
+      await login(email, password);
+      navigate('/');
     } catch (err) {
       console.error(err);
     }
@@ -45,7 +45,6 @@ const CreateAccount = () => {
     <div className="create-account">
       <h2 className="create-account__title">Create new account</h2>
       <form className="create-account__form-container" onSubmit={handleSubmit(onSubmit)}>
-        {/* Username Input */}
         <div className="create-account__form-container__username">
           <label htmlFor="username">Username</label>
           <input
@@ -61,7 +60,6 @@ const CreateAccount = () => {
           {errors.username && <p style={{ color: 'red' }}>{errors.username.message}</p>}
         </div>
 
-        {/* Email Input */}
         <div className="create-account__form-container__email">
           <label htmlFor="email">Email address</label>
           <input
@@ -79,7 +77,6 @@ const CreateAccount = () => {
           {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
         </div>
 
-        {/* Password Input */}
         <div className="create-account__form-container__password">
           <label htmlFor="password">Password</label>
           <input
@@ -95,7 +92,6 @@ const CreateAccount = () => {
           {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
         </div>
 
-        {/* Confirm Password Input */}
         <div className="create-account__form-container__repeat-password">
           <label htmlFor="confirmPassword">Repeat Password</label>
           <input
@@ -110,10 +106,9 @@ const CreateAccount = () => {
           {errors.confirmPassword && <p style={{ color: 'red' }}>{errors.confirmPassword.message}</p>}
         </div>
 
-        {/* Submit Button */}
-        <button className="create-account-btn" type="submit">
+        <div className="create-account-btn" type="submit">
           <p className="create-account-btn__name">Create</p>
-        </button>
+        </div>
 
         <p className="create-account__footer">
           Already have an account? <a href="/signin">Sign In.</a>
@@ -124,159 +119,3 @@ const CreateAccount = () => {
 };
 
 export default CreateAccount;
-
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { useAuth } from '../../realworldblog-api/auth-contect';
-// import './sign-up.css';
-
-// const CreateAccount = () => {
-//   const [username, setUsername] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [confirmPassword, setConfirmPassword] = useState('');
-//   const [error, setError] = useState(null);
-//   const { login } = useAuth();
-//   const navigate = useNavigate();
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setError(null);
-
-//     if (password !== confirmPassword) {
-//       setError('Passwords do not match');
-//       return;
-//     }
-
-//     try {
-//       const response = await fetch('https://blog-platform.kata.academy/api/users', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           user: {
-//             username,
-//             email,
-//             password,
-//           },
-//         }),
-//       });
-
-//       if (!response.ok) {
-//         const errorData = await response.json();
-//         setError(errorData.errors || 'Sign-up failed');
-//         return;
-//       }
-
-//       const data = await response.json();
-//       await login(email, password); // Log in the user immediately after sign-up
-//       navigate('/'); // Redirect to homepage
-//     } catch (err) {
-//       setError('An error occurred during sign-up');
-//       console.error(err);
-//     }
-//   };
-
-//   return (
-//     <div className="create-account">
-//       <h2 className="create-account__title">Create new account</h2>
-//       <form className="create-account__form-container" onSubmit={handleSubmit}>
-//         <div className="create-account__form-container__username">
-//           <label htmlFor="username">Username</label>
-//           <input
-//             type="text"
-//             id="username"
-//             placeholder="Username"
-//             value={username}
-//             onChange={(e) => setUsername(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div className="create-account__form-container__email">
-//           <label htmlFor="email">Email address</label>
-//           <input
-//             type="email"
-//             id="email"
-//             placeholder="Email address"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div className="create-account__form-container__password">
-//           <label htmlFor="password">Password</label>
-//           <input
-//             type="password"
-//             id="password"
-//             placeholder="Password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div className="create-account__form-container__repeat-password">
-//           <label htmlFor="confirm-password">Repeat Password</label>
-//           <input
-//             type="password"
-//             id="confirm-password"
-//             placeholder="Password"
-//             value={confirmPassword}
-//             onChange={(e) => setConfirmPassword(e.target.value)}
-//             required
-//           />
-//         </div>
-//         {error && <p className="error-message">{error}</p>}
-//         <button className="create-account-btn" type="submit">
-//           <p className="create-account-btn__name">Create</p>
-//         </button>
-//         <p className="create-account__footer">
-//           Already have an account? <a href="/signin">Sign In.</a>
-//         </p>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default CreateAccount;
-
-// import React from 'react';
-// import './sign-up.css';
-
-// const CreateAccount = () => {
-//   return (
-//     <div className="create-account">
-//       <h2 className="create-account__title">Create new account</h2>
-//       <form className="create-account__form-container">
-//         <div className="create-account__form-container__username">
-//           <label htmlFor="username">Username</label>
-//           <input type="text" id="username" placeholder="Username" />
-//         </div>
-//         <div className="create-account__form-container__email">
-//           <label htmlFor="email">Email address</label>
-//           <input type="email" id="email" placeholder="Email address" />
-//         </div>
-//         <div className="create-account__form-container__password">
-//           <label htmlFor="password">Password</label>
-//           <input type="password" id="password" placeholder="Password" />
-//         </div>
-//         <div className="create-account__form-container__repeat-password">
-//           <label htmlFor="repeat-password">Repeat Password</label>
-//           <input type="password" id="repeat-password" placeholder="Password" />
-//         </div>
-//         <div className="create-account__form-container__checkbox">
-//           <input type="checkbox" id="agree" />
-//           <label htmlFor="agree">I agree to the processing of my personal information</label>
-//         </div>
-//         <div className="create-account-btn" type="submit">
-//           <p className="create-account-btn__name">Create</p>
-//         </div>
-//         <p className="create-account__footer">
-//           Already have an account? <a href="/signin">Sign In.</a>
-//         </p>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default CreateAccount;

@@ -129,9 +129,9 @@ const EditProfile = () => {
         </div>
 
         {/* Submit Button */}
-        <button className="edit-profile-btn" type="submit">
+        <div className="edit-profile-btn" type="submit">
           Save
-        </button>
+        </div>
       </form>
     </div>
   );

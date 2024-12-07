@@ -17,10 +17,9 @@ const SignIn = () => {
     const { email, password } = data;
     try {
       await login(email, password);
-      navigate('/'); // Redirect to homepage or a specific route
+      navigate('/');
     } catch (err) {
       console.error(err);
-      // Handle any errors (invalid credentials, etc.)
     }
   };
 
@@ -68,13 +67,11 @@ const SignIn = () => {
           {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
         </div>
 
-        {/* Error Message for Login Failure */}
         {errors.general && <p style={{ color: 'red' }}>{errors.general.message}</p>}
 
-        {/* Submit Button */}
-        <button className="log-in-btn" type="submit">
+        <div className="log-in-btn" type="submit">
           <p className="log-in-btn__name">Login</p>
-        </button>
+        </div>
 
         <p className="sign-in__footer">
           Don’t have an account? <a href="/signup">Sign Up.</a>
