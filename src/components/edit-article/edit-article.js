@@ -72,6 +72,7 @@ const EditArticle = () => {
             placeholder="Title"
             {...register('title', {
               required: 'Title is required',
+              validate: (value) => value.trim() !== '' || 'Title cannot be empty spaces',
               minLength: { value: 1, message: 'Title must have at least 1 character' },
             })}
             style={{
@@ -92,6 +93,7 @@ const EditArticle = () => {
             placeholder="Short description"
             {...register('description', {
               required: 'Short description is required',
+              validate: (value) => value.trim() !== '' || 'Field cannot be empty spaces',
               minLength: { value: 1, message: 'Short description must have at least 1 character' },
             })}
             style={{
@@ -111,6 +113,7 @@ const EditArticle = () => {
             placeholder="Text"
             {...register('body', {
               required: 'Text is required',
+              validate: (value) => value.trim() !== '' || 'Field cannot be empty spaces',
               minLength: { value: 1, message: 'Text must have at least 1 character' },
             })}
             style={{

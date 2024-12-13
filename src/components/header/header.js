@@ -46,8 +46,14 @@ const Header = () => {
             <div className="user-info" onClick={handleEditProfile} style={{ marginTop: 'auto', marginBottom: 'auto' }}>
               {user.username}{' '}
               <img
-                src={user.image || 'placeholder-avatar.png'}
+                src={
+                  user.image || 'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg'
+                }
                 alt={user.username}
+                onError={(e) =>
+                  (e.currentTarget.src =
+                    'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg')
+                }
                 style={{ height: '25px', width: '25px', borderRadius: '20px' }}
               />
             </div>

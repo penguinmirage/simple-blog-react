@@ -38,7 +38,16 @@ const ListElement = ({ title, description, tags, author, createdAt, favoritesCou
           </div>
           <div className="one-article__author-info-right-side">
             <div className="one-article__author-info__avatar">
-              <img src={author.image || 'placeholder-avatar.png'} alt={author.username} />
+              <img
+                src={
+                  author.image || 'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg'
+                }
+                alt={author.username}
+                onError={(e) =>
+                  (e.currentTarget.src =
+                    'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg')
+                }
+              />
             </div>
           </div>
         </div>
