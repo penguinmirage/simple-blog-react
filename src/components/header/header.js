@@ -49,7 +49,6 @@ const Header = () => {
                 src={
                   user.image || 'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg'
                 }
-                alt={user.username}
                 onError={(e) =>
                   (e.currentTarget.src =
                     'https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg')
