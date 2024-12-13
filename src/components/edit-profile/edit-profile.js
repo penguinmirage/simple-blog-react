@@ -72,7 +72,7 @@ const EditProfile = () => {
         throw new Error(errorData.errors || 'Update failed');
       }
 
-      alert('Profile updated successfully!');
+      message.success('Profile updated successfully!');
       navigate('/');
     } catch (err) {
       console.error('Error updating profile:', err);
