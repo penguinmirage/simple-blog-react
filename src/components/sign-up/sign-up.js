@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../realworldblog-api/auth-contect';
+import { Spin, message } from 'antd';
 import './sign-up.css';
 
 const CreateAccount = () => {
@@ -12,7 +13,30 @@ const CreateAccount = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    setErrors,
+    clearErrors,
   } = useForm();
+  const [isCheckingUsername, setIsCheckingUsername] = useState(false);
+
+  const validateUsername = async (username) => {
+    setIsCheckingUsername(true);
+    try {
+      const response = await fetch(`https://blog-platform.kata.academy/api/profiles/${username}`);
+      setIsCheckingUsername(false);
+
+      if (response.ok) {
+        return 'Username already exists';
+      } else if (response.status === 404) {
+        message.success('Nice username! And sure a unique one!');
+        return true;
+      } else {
+        throw new Error('Unexpected server response');
+      }
+    } catch (err) {
+      setIsCheckingUsername(false);
+      return 'Unable to check';
+    }
+  };
 
   const onSubmit = async (data) => {
     const { username, email, password } = data;
@@ -55,9 +79,15 @@ const CreateAccount = () => {
               required: 'Username is required',
               minLength: { value: 3, message: 'Username must be at least 3 characters' },
               maxLength: { value: 20, message: 'Username must not exceed 20 characters' },
+              validate: async (value) => await validateUsername(value),
             })}
+            onChange={() => clearErrors('username')}
+            style={{
+              borderColor: errors.username ? 'red' : '',
+            }}
           />
-          {errors.username && <p style={{ color: 'red' }}>{errors.username.message}</p>}
+          {isCheckingUsername && <Spin tip="Checking if the entered nickname us available" size="Large" />}
+          {errors.username && <p style={{ color: 'red', borderColor: 'red' }}>{errors.username.message}</p>}
         </div>
 
         <div className="create-account__form-container__email">
@@ -73,8 +103,11 @@ const CreateAccount = () => {
                 message: 'Invalid email format',
               },
             })}
+            style={{
+              borderColor: errors.email ? 'red' : '',
+            }}
           />
-          {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
+          {errors.email && <p style={{ color: 'red', borderColor: 'red' }}>{errors.email.message}</p>}
         </div>
 
         <div className="create-account__form-container__password">
@@ -88,8 +121,11 @@ const CreateAccount = () => {
               minLength: { value: 6, message: 'Password must be at least 6 characters' },
               maxLength: { value: 40, message: 'Password must not exceed 40 characters' },
             })}
+            style={{
+              borderColor: errors.password ? 'red' : '',
+            }}
           />
-          {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
+          {errors.password && <p style={{ color: 'red', borderColor: 'red' }}>{errors.password.message}</p>}
         </div>
 
         <div className="create-account__form-container__repeat-password">
@@ -102,8 +138,28 @@ const CreateAccount = () => {
               required: 'Please confirm your password',
               validate: (value) => value === watch('password') || 'Passwords do not match',
             })}
+            style={{
+              borderColor: errors.confirmPassword ? 'red' : '',
+            }}
           />
-          {errors.confirmPassword && <p style={{ color: 'red' }}>{errors.confirmPassword.message}</p>}
+          {errors.confirmPassword && (
+            <p style={{ color: 'red', borderColor: 'red' }}>{errors.confirmPassword.message}</p>
+          )}
+        </div>
+
+        <div className="checkbox">
+          <input
+            type="checkbox"
+            id="agree"
+            {...register('agree', { required: 'You must agree to proceed' })}
+            style={{
+              borderColor: errors.agree ? 'red' : '',
+            }}
+          />
+          <label htmlFor="agree" className="checkbox-label">
+            I agree to the processing of my personal information
+          </label>
+          {errors.agree && <p style={{ color: 'red', borderColor: 'red' }}>{errors.agree.message}</p>}
         </div>
 
         <div

@@ -9,7 +9,10 @@ const ListOfArticles = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [articlesCount, setArticlesCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(() => {
+    const savedPage = localStorage.getItem('currentPage');
+    return savedPage ? parseInt(savedPage, 10) : 1;
+  });
   const pageSize = 10;
 
   const apiService = new ApiService();
@@ -31,6 +34,10 @@ const ListOfArticles = () => {
 
   useEffect(() => {
     fetchArticles(currentPage);
+  }, [currentPage]);
+
+  useEffect(() => {
+    localStorage.setItem('currentPage', currentPage);
   }, [currentPage]);
 
   const handlePageChange = (page) => {

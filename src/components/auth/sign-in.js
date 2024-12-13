@@ -27,7 +27,6 @@ const SignIn = () => {
     <div className="sign-in">
       <h2 className="sign-in__title">Sign In</h2>
       <form className="sign-in__form-container" onSubmit={handleSubmit(onSubmit)}>
-        {/* Email Input */}
         <div className="sign-in__form-container__email">
           <label htmlFor="email">Email address</label>
           <input
@@ -41,11 +40,13 @@ const SignIn = () => {
                 message: 'Invalid email format',
               },
             })}
+            style={{
+              borderColor: errors.email ? 'red' : '',
+            }}
           />
           {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
         </div>
 
-        {/* Password Input */}
         <div className="sign-in__form-container__password">
           <label htmlFor="password">Password</label>
           <input
@@ -63,6 +64,9 @@ const SignIn = () => {
                 message: 'Password must not exceed 40 characters',
               },
             })}
+            style={{
+              borderColor: errors.password ? 'red' : '',
+            }}
           />
           {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
         </div>

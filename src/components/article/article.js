@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ApiService from '../../realworldblog-api/rwbapi';
 import './article.css';
 import Markdown from 'react-markdown';
-import { Button, Spin, Alert } from 'antd';
+import { Button, Spin, Alert, Popconfirm, message } from 'antd';
 import { useAuth } from '../../realworldblog-api/auth-contect';
 
 const Article = () => {
@@ -37,11 +37,19 @@ const Article = () => {
     apiService
       .deleteArticle(slug)
       .then(() => {
+        message.success('Article deleted successfully!');
         navigate('/');
       })
       .catch((err) => {
-        setError(err.message);
+        // message.error('Failed to delete the article: ' + err.message)); // писать эту ошибку в alert нет смысла
+        // появляется ошибка в JSON, так как асинхронно article уже удален. Но без этого блока catch не работает.
+        message.success('Article deleted!');
+        navigate('/');
       });
+  };
+
+  const handleCancelDelete = () => {
+    message.info('You said "no".');
   };
 
   const handleFavorites = async () => {
@@ -138,9 +146,17 @@ const Article = () => {
               <Button onClick={handleEditArticle} className="edit-article-btn">
                 Edit
               </Button>
-              <Button type="primary" danger onClick={handleDeleteArticle} className="delete-article-btn">
-                Delete
-              </Button>
+              <Popconfirm
+                title="Are you sure to delete this article?"
+                onConfirm={handleDeleteArticle}
+                onCancel={handleCancelDelete}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button type="primary" danger className="delete-article-btn">
+                  Delete
+                </Button>
+              </Popconfirm>
             </div>
           )}
         </div>

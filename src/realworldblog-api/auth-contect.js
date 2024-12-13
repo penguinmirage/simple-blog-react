@@ -1,9 +1,11 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { Spin } from 'antd';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const initializeUser = async () => {
@@ -18,7 +20,7 @@ export const AuthProvider = ({ children }) => {
           });
 
           if (!response.ok) {
-            throw new Error('Failed to fetch user');
+            throw new Error('Failed to fetch');
           }
 
           const data = await response.json();
@@ -28,6 +30,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem('token');
         }
       }
+      setLoading(false);
     };
 
     initializeUser();
@@ -65,6 +68,10 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem('token');
   };
+
+  if (loading) {
+    return <Spin tip="Loading" size="large" />;
+  }
 
   return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
 };

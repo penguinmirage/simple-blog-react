@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../realworldblog-api/auth-contect'; // For token
+import { useForm } from 'react-hook-form';
+import { message } from 'antd';
+import { useAuth } from '../../realworldblog-api/auth-contect';
+import { useNavigate } from 'react-router-dom';
 import './create-article.css';
 
 const CreateArticle = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [body, setBody] = useState('');
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [tags, setTags] = useState(['new tag']);
   const [newTag, setNewTag] = useState('');
-  const { user } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const addTag = () => {
     if (newTag.trim() && !tags.includes(newTag)) {
@@ -21,13 +29,8 @@ const CreateArticle = () => {
     setTags(tags.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!title || !description || !body) {
-      alert('All fields are required!');
-      return;
-    }
+  const onSubmit = async (data) => {
+    const { title, description, body } = data;
 
     const token = localStorage.getItem('token');
     const article = {
@@ -53,28 +56,37 @@ const CreateArticle = () => {
         throw new Error('Failed to create article');
       }
 
-      const data = await response.json();
-      console.log('Article created:', data);
-      alert('Article created successfully!');
+      const result = await response.json();
+      console.log('Article created:', result);
+      message.success('Article created successfully!');
+      reset();
+      setTags(['new tag']);
+      navigate('/');
     } catch (error) {
       console.error('Error creating article:', error);
+      message.error('Error creating article');
     }
   };
 
   return (
     <div className="create-article">
       <h2 className="create-article__title">Create New Article</h2>
-      <form className="create-article__form-container" onSubmit={handleSubmit}>
+      <form className="create-article__form-container" onSubmit={handleSubmit(onSubmit)}>
         <div className="create-article__form-field">
           <label htmlFor="title">Title</label>
           <input
             type="text"
             id="title"
             placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
+            {...register('title', {
+              required: 'Title is required',
+              minLength: { value: 1, message: 'Title must have at least 1 character' },
+            })}
+            style={{
+              borderColor: errors.title ? 'red' : '',
+            }}
           />
+          {errors.title && <p style={{ color: 'red' }}>{errors.title.message}</p>}
         </div>
         <div className="create-article__form-field">
           <label htmlFor="description">Short Description</label>
@@ -82,20 +94,30 @@ const CreateArticle = () => {
             type="text"
             id="description"
             placeholder="Short description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
+            {...register('description', {
+              required: 'Description is required',
+              minLength: { value: 1, message: 'Description must have at least 1 character' },
+            })}
+            style={{
+              borderColor: errors.description ? 'red' : '',
+            }}
           />
+          {errors.description && <p style={{ color: 'red' }}>{errors.description.message}</p>}
         </div>
         <div className="create-article__form-field">
           <label htmlFor="body">Text</label>
           <textarea
             id="body"
             placeholder="Text"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            required
+            {...register('body', {
+              required: 'Text is required',
+              minLength: { value: 1, message: 'Text must have at least 1 character' },
+            })}
+            style={{
+              borderColor: errors.body ? 'red' : '',
+            }}
           ></textarea>
+          {errors.body && <p style={{ color: 'red' }}>{errors.body.message}</p>}
         </div>
         <div className="create-article__tags-section">
           <label>Tags</label>

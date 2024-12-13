@@ -9,6 +9,8 @@ const ListElement = ({ title, description, tags, author, createdAt, favoritesCou
     navigate(`/article/${slug}`);
   };
 
+  const validTags = tags.filter((tag) => tag && tag.trim().length > 0);
+
   return (
     <div className="one-article list-element" onClick={handleClick}>
       <div className="one-article__left-side-of-the-element">
@@ -19,11 +21,12 @@ const ListElement = ({ title, description, tags, author, createdAt, favoritesCou
           <div className="one-article__like">♥{favoritesCount}</div>
         </div>
         <div className="one-article__tags">
-          {tags.map((tag, index) => (
-            <span key={index} className="one-article__tags__single-tag">
-              {tag}
-            </span>
-          ))}
+          {validTags.length > 0 &&
+            validTags.map((tag, index) => (
+              <span key={index} className="one-article__tags__single-tag">
+                {tag}
+              </span>
+            ))}
         </div>
         <div className="one-article__kurztext">{description}</div>
       </div>

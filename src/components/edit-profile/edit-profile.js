@@ -72,6 +72,9 @@ const EditProfile = () => {
               minLength: { value: 3, message: 'Username must be at least 3 characters' },
               maxLength: { value: 20, message: 'Username must not exceed 20 characters' },
             })}
+            style={{
+              borderColor: errors.username ? 'red' : '',
+            }}
           />
           {errors.username && <p style={{ color: 'red' }}>{errors.username.message}</p>}
         </div>
@@ -89,6 +92,9 @@ const EditProfile = () => {
                 message: 'Invalid email format',
               },
             })}
+            style={{
+              borderColor: errors.email ? 'red' : '',
+            }}
           />
           {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
         </div>
@@ -103,6 +109,9 @@ const EditProfile = () => {
               minLength: { value: 6, message: 'Password must be at least 6 characters' },
               maxLength: { value: 40, message: 'Password must not exceed 40 characters' },
             })}
+            style={{
+              borderColor: errors.password ? 'red' : '',
+            }}
           />
           {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
         </div>
@@ -119,6 +128,9 @@ const EditProfile = () => {
                 message: 'Invalid image URL',
               },
             })}
+            style={{
+              borderColor: errors.avatar ? 'red' : '',
+            }}
           />
           {errors.avatar && <p style={{ color: 'red' }}>{errors.avatar.message}</p>}
         </div>

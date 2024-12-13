@@ -25,9 +25,9 @@ const Header = () => {
 
   return (
     <div className="header">
-      <h2 className="name-element" onClick={() => navigate('/')}>
+      <span className="name-element" onClick={() => navigate('/')}>
         Realworld Blog
-      </h2>
+      </span>
       <div className="auth-elements">
         {!user ? (
           <>
@@ -39,11 +39,11 @@ const Header = () => {
             </Button>
           </>
         ) : (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '9px' }}>
+          <div style={{ display: 'flex', alignContent: 'center', gap: '9px', height: '25px' }}>
             <Button default style={{ color: 'green' }} onClick={handleCreateArticle}>
               Create New Article
             </Button>
-            <div className="user-info" onClick={handleEditProfile}>
+            <div className="user-info" onClick={handleEditProfile} style={{ marginTop: 'auto', marginBottom: 'auto' }}>
               {user.username}{' '}
               <img
                 src={user.image || 'placeholder-avatar.png'}
