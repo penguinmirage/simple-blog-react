@@ -1,18 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../realworldblog-api/auth-contect';
+import { message } from 'antd';
 import './edit-profile.css';
 
 const EditProfile = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [isCheckingUsername, setIsCheckingUsername] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
+    clearErrors,
+    watch,
   } = useForm();
 
   useEffect(() => {
@@ -23,6 +27,25 @@ const EditProfile = () => {
       setValue('avatar', user.image || '');
     }
   }, [user, setValue]);
+
+  const validateUsername = async (username) => {
+    setIsCheckingUsername(true);
+    try {
+      const response = await fetch(`https://blog-platform.kata.academy/api/profiles/${username}`);
+      setIsCheckingUsername(false);
+
+      if (response.ok) {
+        return 'Username already exists';
+      } else if (response.status === 404) {
+        return true;
+      } else {
+        throw new Error('Unexpected server response');
+      }
+    } catch (err) {
+      setIsCheckingUsername(false);
+      return 'Unable to check username';
+    }
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -53,7 +76,7 @@ const EditProfile = () => {
       navigate('/');
     } catch (err) {
       console.error('Error updating profile:', err);
-      alert('Failed to update profile.');
+      message.warning('Failed to update profile.');
     }
   };
 
@@ -71,7 +94,9 @@ const EditProfile = () => {
               required: 'Username is required',
               minLength: { value: 3, message: 'Username must be at least 3 characters' },
               maxLength: { value: 20, message: 'Username must not exceed 20 characters' },
+              validate: async (value) => await validateUsername(value),
             })}
+            onChange={() => clearErrors('username')}
             style={{
               borderColor: errors.username ? 'red' : '',
             }}
